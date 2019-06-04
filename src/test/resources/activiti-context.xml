@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    数据源-->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" >
+        <property name="jdbcUrl" value="jdbc:h2:mem:activiti2;DB_CLOSE_DELAY=1000" />
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
+<!--    事务管理器-->
+    <bean id ="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="processEngineConfiguration"
+          class="org.activiti.spring.SpringProcessEngineConfiguration">
+<!--        <property name="jdbcUrl" value="jdbc:h2:mem:activiti2;DB_CLOSE_DELAY=1000" />-->
+<!--        <property name="jdbcDriver" value="org.h2.Driver" />-->
+<!--        <property name="jdbcUsername" value="sa" />-->
+<!--        <property name="jdbcPassword" value="" />-->
+        <property name="dataSource" ref="dataSource" />
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="databaseSchemaUpdate" value="drop-create" />
+    </bean>
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    </bean>
+
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+    <bean class="org.activiti.engine.test.ActivitiRule" >
+        <property name="processEngine" ref="processEngine" />
+    </bean>
+    <bean class="learn.activiti.demo.BeanDemo" id="beanDemo" />
+</beans>
