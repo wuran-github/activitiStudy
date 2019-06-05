@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/layoutit.css" />
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+<div id="example">
+    <table class="table">
+        <thead>
+        <tr>
+            <th v-for="head in thead">
+                {{head}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in list">
+            <td v-for="property in item">{{property}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <script>
+        var app = new Vue({
+            el: "#example",
+            data: {
+                list: null,
+            },
+            created: function () {
+            },
+            methods: {
+                getList: function (page, totalPage) {
+
+                },
+            },
+        });
+    </script>
+</body>
+</html>
