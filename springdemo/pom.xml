@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>5.1.7.RELEASE</version>
+            <version>5.3.18</version>
         </dependency>
 <!--        swagger2-->
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
